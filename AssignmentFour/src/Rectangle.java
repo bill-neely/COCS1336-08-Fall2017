@@ -23,7 +23,7 @@ public class Rectangle {
 	}
 
 	public boolean isSquare() {
-		return false;
+		return this.length == this.width;
 	}
 
 }
