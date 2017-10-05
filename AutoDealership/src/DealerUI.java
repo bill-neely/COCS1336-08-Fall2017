@@ -4,7 +4,7 @@ public class DealerUI {
 	public static void main(String[] args) {
 		//Vehicle[] myCars = getListOfCars();
 		//displayListOfVehicles(myCars);
-		displayListOfCarLots(getListOfCarLots());
+		//displayListOfCarLots(getListOfCarLots());
 	}
 
 	private static void displayListOfCarLots(CarLot[] lots) {
@@ -22,19 +22,6 @@ public class DealerUI {
 			System.out.print(car.model() + "\t");
 			System.out.println("$" + car.price());
 		}
-	}
-	
-	private static CarLot[] getListOfCarLots() {
-		CarLot lot1 = new CarLot("Downtown", getListOfCars());
-		CarLot lot2 = new CarLot("Northwest", getListOfCars());
-		return new CarLot[] {lot1, lot2};
-	}
-	
-	private static Vehicle[] getListOfCars() {
-		// TODO: Move this to a repository
-		Vehicle car1 = new Vehicle("Honda", "Civic", 2356.87f);
-		Vehicle car2 = new Vehicle("Ford", "F350", 12753.98f);
-		return new Vehicle[] {car1, car2};
 	}
 
 }
