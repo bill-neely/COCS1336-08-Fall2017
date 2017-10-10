@@ -4,11 +4,13 @@ public class Vehicle {
 	private String make;
 	private String model;
 	private float price;
+	private int quantity;
 
-	public Vehicle(String make, String model, float price) {
+	public Vehicle(String make, String model, float price, int quantity) {
 		this.make = make;
 		this.model = model;
 		this.price = price;
+		this.quantity = quantity;
 	}
 
 	public String make() {
@@ -21,6 +23,15 @@ public class Vehicle {
 
 	public float price() {
 		return this.price;
+	}
+
+	public int quantity() {
+		return this.quantity;
+	}
+
+	public Vehicle clone(int newQuantity) {
+		Vehicle clonedCar = new Vehicle(this.make(), this.model(), this.price(), newQuantity);
+		return clonedCar;
 	}
 
 }

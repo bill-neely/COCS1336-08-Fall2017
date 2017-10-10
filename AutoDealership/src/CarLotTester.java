@@ -8,7 +8,7 @@ public class CarLotTester {
 	}
 
 	private static Vehicle[] listOfVehicles() {
-		Vehicle car1 = new Vehicle("make", "model", 65.00f);
+		Vehicle car1 = new Vehicle("make", "model", 65.00f, 0);
 		return new Vehicle[] {car1, car1, car1};
 	}
 

@@ -13,17 +13,17 @@ public class Repository {
 
 	private static Vehicle[] getListOfCars(String location) {
 		if (location.equals("Downtown")) {
-			Vehicle car1 = new Vehicle("Honda", "Civic", 2356.87f);
-			Vehicle car2 = new Vehicle("Honda", "Pilot", 12753.98f);
-			Vehicle car3 = new Vehicle("Honda", "CRV", 8904.90f);
-			Vehicle car4 = new Vehicle("Honda", "Accord", 7546.98f);
+			Vehicle car1 = new Vehicle("Honda", "Civic", 2356.87f, 0);
+			Vehicle car2 = new Vehicle("Honda", "Pilot", 12753.98f, 0);
+			Vehicle car3 = new Vehicle("Honda", "CRV", 8904.90f, 0);
+			Vehicle car4 = new Vehicle("Honda", "Accord", 7546.98f, 0);
 			return new Vehicle[] {car1, car2, car3, car4};
 		}
 		if (location.equals("Northwest")) {
-			Vehicle car1 = new Vehicle("Chevrolet", "Malibu", 2356.87f);
-			Vehicle car2 = new Vehicle("Chevrolet", "Impala", 12753.98f);
-			Vehicle car3 = new Vehicle("Chevrolet", "Corvette", 108904.90f);
-			Vehicle car4 = new Vehicle("Chevrolet", "Silverado", 7546.98f);
+			Vehicle car1 = new Vehicle("Chevrolet", "Malibu", 2356.87f, 0);
+			Vehicle car2 = new Vehicle("Chevrolet", "Impala", 12753.98f, 0);
+			Vehicle car3 = new Vehicle("Chevrolet", "Corvette", 108904.90f, 0);
+			Vehicle car4 = new Vehicle("Chevrolet", "Silverado", 7546.98f, 0);
 			return new Vehicle[] {car1, car2, car3, car4};
 		}
 		return new Vehicle[0];
