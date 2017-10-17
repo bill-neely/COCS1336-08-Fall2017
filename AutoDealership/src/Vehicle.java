@@ -34,4 +34,18 @@ public class Vehicle {
 		return clonedCar;
 	}
 
+	public boolean hasEnoughQuantity(int quantityToCheck) {
+		if (this.quantity() >= quantityToCheck)
+			return true;
+		return false;
+	}
+
+	public boolean removeQuantity(int quantityToRemove) {
+		if (this.hasEnoughQuantity(quantityToRemove)) {
+			this.quantity -= quantityToRemove;
+			return true;
+		}
+		return false;
+	}
+
 }

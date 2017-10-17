@@ -8,6 +8,15 @@ public class VehicleTester {
 		System.out.println(myCar.price() == 2350.54f);
 		System.out.println(myCar.quantity() == 5);
 		
+		System.out.println(myCar.hasEnoughQuantity(5) == true);
+		System.out.println(myCar.hasEnoughQuantity(6) == false);
+		
+		System.out.println(myCar.removeQuantity(6) == false);
+		System.out.println(myCar.quantity() == 5);
+		
+		System.out.println(myCar.removeQuantity(3) == true);
+		System.out.println(myCar.quantity() == 2);
+		
 		Vehicle myCar2;
 		myCar2 = myCar.clone(2);
 		System.out.println(myCar2.make() == myCar.make());

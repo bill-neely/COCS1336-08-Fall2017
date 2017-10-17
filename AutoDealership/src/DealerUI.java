@@ -7,6 +7,8 @@ public class DealerUI {
 		ShoppingCart myCart = new ShoppingCart();
 		Dealership myDealer = Repository.getDealership();
 		boolean keepGoing = true;
+		String customerName = ask("What is your name?");
+		System.out.println("Hello " + customerName + ". Welcome to " + myDealer.dealerName() + ".");
 		while (keepGoing) {
 			System.out.println("Your shopping cart balance is: " + myCart.balanceDue());
 			displayListOfCarLots(myDealer.CarLots());
@@ -23,12 +25,16 @@ public class DealerUI {
 					if (vehicleNumber >= 0 && vehicleNumber <= chosenLot.Vehicles().length - 1) {
 						String quantityChoice = ask("How many do you wish to buy?");
 						int qty = Integer.parseInt(quantityChoice);
-						myCart.addVehicle(chosenLot.Vehicles()[vehicleNumber], qty);
+						if (myCart.addVehicle(chosenLot.Vehicles()[vehicleNumber], qty))
+							System.out.println(qty + " added to your cart.");
+						else 
+							System.out.println("Sorry. We don't have that many");
 					}
 				}
 			}
 		}
-		System.out.println("Thank you for shopping.  Your balance is " + myCart.balanceDue());
+		System.out.println("Thank you for shopping " + customerName);
+		System.out.println("Your balance is " + myCart.balanceDue());
 	}
 
 	private static void displayListOfCarLots(CarLot[] lots) {
@@ -47,14 +53,15 @@ public class DealerUI {
 	}
 	
 	private static void displayListOfVehicles(Vehicle[] listOfVehicles) {
-		System.out.println("\tMake    \tModel\tPrice");
-		System.out.println("---\t--------\t-----\t-----");
+		System.out.println("\tMake    \tModel\tPrice\t\tQty");
+		System.out.println("---\t--------\t-----\t-----\t\t---");
 		int i = 1;
 		for (Vehicle car : listOfVehicles) {
 			System.out.print(i + "\t");
 			System.out.print(car.make() + "\t");
 			System.out.print(car.model() + "\t");
-			System.out.println("$" + car.price());
+			System.out.print("$" + car.price() + "\t\t");
+			System.out.println(car.quantity());
 			i++;
 		}
 	}
