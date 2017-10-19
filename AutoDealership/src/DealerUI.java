@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.text.NumberFormat;
 
 public class DealerUI {
 
 	private static Scanner scan = new Scanner(System.in);
-	
+    private static NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
 	public static void main(String[] args) {
 		ShoppingCart myCart = new ShoppingCart();
 		Dealership myDealer = Repository.getDealership();
@@ -11,7 +13,7 @@ public class DealerUI {
 		String customerName = ask("What is your name?");
 		System.out.println("Hello " + customerName + ". Welcome to " + myDealer.dealerName() + ".");
 		while (keepGoing) {
-			System.out.println("Your shopping cart balance is: " + myCart.balanceDue());
+			System.out.println("Your shopping cart balance is: " + formatter.format(myCart.balanceDue()));
 			displayListOfCarLots(myDealer.CarLots());
 			String choice = ask("Please pick a Car Lot (enter return to quit):");
 			if (choice.equals("return")) {
@@ -21,7 +23,7 @@ public class DealerUI {
 			}
 		}
 		System.out.println("Thank you for shopping " + customerName);
-		System.out.println("Your balance is " + myCart.balanceDue());
+		System.out.println("Your balance is " + formatter.format(myCart.balanceDue()));
 		scan.close();
 	}
 
@@ -59,17 +61,43 @@ public class DealerUI {
 	}
 	
 	private static void displayListOfVehicles(Vehicle[] listOfVehicles) {
-		System.out.println("\tMake    \tModel\tPrice\t\tQty");
-		System.out.println("---\t--------\t-----\t-----\t\t---");
+		System.out.print(rightPad("Option", 6) + "\t");
+		System.out.print(rightPad("Make", 12) + "\t");
+		System.out.print(rightPad("Model", 12) + "\t");
+		System.out.print(rightPad("Price", 12) + "\t");
+		System.out.println(rightPad("Qty", 5) + "\t");
+
+		System.out.print(rightPad("", 6, "-") + "\t");
+		System.out.print(rightPad("", 12, "-") + "\t");
+		System.out.print(rightPad("", 12, "-") + "\t");
+		System.out.print(rightPad("", 12, "-") + "\t");
+		System.out.println(rightPad("", 5, "-") + "\t");
 		int i = 1;
 		for (Vehicle car : listOfVehicles) {
 			System.out.print(i + "\t");
-			System.out.print(car.make() + "\t");
-			System.out.print(car.model() + "\t");
-			System.out.print("$" + car.price() + "\t\t");
-			System.out.println(car.quantity());
+			System.out.print(rightPad(car.make(), 12) + "\t");
+			System.out.print(rightPad(car.model(), 12) + "\t");
+			System.out.print(rightPad(formatter.format(car.price()),12) + "\t");
+			System.out.println(rightPad(car.quantity(),5));
 			i++;
 		}
+	}
+
+	public static String rightPad(String phrase, int finalLength) {
+		return rightPad(phrase, finalLength, " ");
+	}
+
+	public static String rightPad(int number, int finalLength) {
+		return rightPad(Integer.toString(number), finalLength);
+	}
+
+	public static String rightPad(String phrase, int finalLength, String padCharacter) {
+		if (phrase.length() >= finalLength) 
+			return phrase.substring(0, finalLength);
+		String spaces = "";
+		for (int i = 0; i < finalLength - phrase.length(); i++)
+			spaces += padCharacter;
+		return phrase + spaces;
 	}
 
 }
