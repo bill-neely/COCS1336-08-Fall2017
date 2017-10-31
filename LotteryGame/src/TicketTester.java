@@ -2,9 +2,9 @@
 public class TicketTester {
 
 	public static void main(String[] args) {
-		int howMany = 60;
+		int howMany = 6;
 		int lower = 1;
-		int upper = 50000000;
+		int upper = 50;
 		Ticket myTicket = new Ticket(howMany, lower, upper);
 		System.out.println(myTicket.numbers().length == howMany);
 		boolean testResult = true;
