@@ -40,6 +40,23 @@ public class YahtzeeUI {
 		theGame.pickAScore();
 	}
 
+	private static void eliminateDice(Yahtzee theGame) {
+		String dieNumber = askForString(scan, "Choose die#, (R)oll");
+		if (dieNumber.toUpperCase().equals("R"))
+			theGame.roll();			
+		else 
+			theGame.eliminateDie(dieNumber);
+	}
+
+	private static void eliminateDiceOrAskToScore(Yahtzee theGame) {
+		String choice = askForString(scan, "(R)oll or (S)core?");
+		if (choice.toUpperCase().equals("S")) { 
+			displayScoreOptionsAndPick(theGame);
+		} else {
+			eliminateDice(theGame);
+		}
+	}
+
 	private static boolean playAgain() {
 		return (askForString(scan, "Play Again?")).equals("Y");
 	}
@@ -51,9 +68,10 @@ public class YahtzeeUI {
 			displayDice(theGame);
 			// roll again or pick score
 			if (theGame.rollsLeft() > 0)
-				theGame.roll();
+				eliminateDiceOrAskToScore(theGame);
 			else
 				displayScoreOptionsAndPick(theGame);
 		}
 	}
+
 }
