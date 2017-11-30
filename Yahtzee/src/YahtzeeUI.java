@@ -10,9 +10,10 @@ public class YahtzeeUI {
 		while (keepPlaying) {
 			Yahtzee theGame = new Yahtzee();
 			while (theGame.isNotOver()) {
-				displayScoreCard(theGame);
 				takeaTurn(theGame);
+				System.out.println();
 			}
+			displayScoreCard(theGame);
 			keepPlaying = playAgain();
 		}
 		System.out.println("Thank you, have a good day.");
@@ -41,15 +42,13 @@ public class YahtzeeUI {
 	}
 
 	private static void eliminateDice(Yahtzee theGame) {
-		String dieNumber = askForString(scan, "Choose die#, (R)oll");
-		if (dieNumber.toUpperCase().equals("R"))
-			theGame.roll();			
-		else 
-			theGame.eliminateDie(dieNumber);
+		String dieNumbers = askForString(scan, "Choose die positions to remove (1 3 5)");
+		theGame.eliminateDie(dieNumbers);
+		theGame.roll();
 	}
 
 	private static void eliminateDiceOrAskToScore(Yahtzee theGame) {
-		String choice = askForString(scan, "(R)oll or (S)core?");
+		String choice = askForString(scan, "(R)oll or (S)core? " + theGame.rollsLeft() + " rolls left");
 		if (choice.toUpperCase().equals("S")) { 
 			displayScoreOptionsAndPick(theGame);
 		} else {
@@ -58,11 +57,11 @@ public class YahtzeeUI {
 	}
 
 	private static boolean playAgain() {
-		return (askForString(scan, "Play Again?")).equals("Y");
+		return (askForString(scan, "Play Again?")).toUpperCase().equals("Y");
 	}
 
 	private static void takeaTurn(Yahtzee theGame) {
-		System.out.println(" You are starting a turn");
+		System.out.println("You are starting a turn. " + theGame.turnsLeft() + " turns left.");
 		theGame.startTurn();
 		while (theGame.inATurn()) {
 			displayDice(theGame);
