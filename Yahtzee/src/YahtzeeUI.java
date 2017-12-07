@@ -14,10 +14,23 @@ public class YahtzeeUI {
 				System.out.println();
 			}
 			displayScoreCard(theGame);
+			System.out.println("Final Score: " + theGame.scoreCard().finalScore());
 			keepPlaying = playAgain();
 		}
 		System.out.println("Thank you, have a good day.");
 		scan.close();
+	}
+
+	public static int askForInt(Scanner scan, String prompt) {
+		while (true) {
+			try {
+				String choice = askForString(scan, prompt);
+				int answer = Integer.parseInt(choice);
+				return answer;
+			} catch (NumberFormatException ex) {
+				System.out.println("Please enter a valid number");
+			}
+		}
 	}
 
 	public static String askForString(Scanner scan, String prompt) {
@@ -33,12 +46,24 @@ public class YahtzeeUI {
 	}
 
 	private static void displayScoreCard(Yahtzee theGame) {
-		System.out.println("The score card is dsiplayed:");
+		YahtzeeScoreCardRow[] rows = theGame.scoreCard().rows(theGame.dice());
+		for (int i = 0; i < rows.length; i++ ) {
+			if (rows[i].isScored()) {
+				System.out.println("    " + rows[i].label + "  " + rows[i].score());
+			} else {
+				System.out.println((i + 1) + ".  " + rows[i].label + "  (" + rows[i].score() + ")");
+			}
+
+		}
 	}
 
 	private static void displayScoreOptionsAndPick(Yahtzee theGame) {
-		System.out.println("  Please pick a score:");
-		theGame.pickAScore();
+		int row = 0;
+		do {
+			row = askForInt(scan, " Please pick a row to score:");
+			row -= 1 ;
+		} while (theGame.scoreCard().rows(theGame.dice())[row].isScored());
+		theGame.pickAScore(row);
 	}
 
 	private static void eliminateDice(Yahtzee theGame) {
@@ -64,6 +89,7 @@ public class YahtzeeUI {
 		System.out.println("You are starting a turn. " + theGame.turnsLeft() + " turns left.");
 		theGame.startTurn();
 		while (theGame.inATurn()) {
+			displayScoreCard(theGame);
 			displayDice(theGame);
 			// roll again or pick score
 			if (theGame.rollsLeft() > 0)
