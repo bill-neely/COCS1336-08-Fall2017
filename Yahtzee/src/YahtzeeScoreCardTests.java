@@ -24,10 +24,8 @@ public class YahtzeeScoreCardTests {
 				System.out.println("    " + rows[i].label + "  " + rows[i].score());
 			} else {
 				System.out.println((i + 1) + ".  " + rows[i].label + "  (" + rows[i].score() + ")");
-			}
-				
+			}	
 		}
-		
 	}
 
 	private static void recordTests() {
@@ -49,8 +47,8 @@ public class YahtzeeScoreCardTests {
 	private static void rowTests() {
 		System.out.println("RowTests");
 		YahtzeeScoreCard scoreCard = new YahtzeeScoreCard();
-		System.out.println(scoreCard.rows().length == 13);
 		ArrayList<Die> dice = makeSomeDice(new int[] {1,2,3,4,1});
+		System.out.println(scoreCard.rows(dice).length == 13);
 		System.out.println(scoreCard.rows(dice)[0].label.trim().equals("Aces"));		
 		System.out.println(scoreCard.rows(dice)[11].label.trim().equals("Yahtzee"));		
 
@@ -98,6 +96,4 @@ public class YahtzeeScoreCardTests {
 			dice.add(new Die(i));
 		return dice;
 	}
-
-	
 }

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class YahtzeeUI {
@@ -40,6 +39,9 @@ public class YahtzeeUI {
 	}
 
 	private static void displayDice(Yahtzee theGame) {
+		for (int i = 0; i < theGame.dice().size(); i++)			
+			System.out.print("#" + (i+1) + "\t");
+		System.out.println();
 		for (Die aDie : theGame.dice()) 
 			System.out.print(aDie.sideUp + "\t");
 		System.out.println();
@@ -47,27 +49,15 @@ public class YahtzeeUI {
 
 	private static void displayScoreCard(Yahtzee theGame) {
 		YahtzeeScoreCardRow[] rows = theGame.scoreCard().rows(theGame.dice());
-		for (int i = 0; i < rows.length; i++ ) {
-			if (rows[i].isScored()) {
+		for (int i = 0; i < rows.length; i++ ) 
+			if (rows[i].isScored()) 
 				System.out.println("    " + rows[i].label + "  " + rows[i].score());
-			} else {
+			else
 				System.out.println((i + 1) + ".  " + rows[i].label + "  (" + rows[i].score() + ")");
-			}
-
-		}
-	}
-
-	private static void displayScoreOptionsAndPick(Yahtzee theGame) {
-		int row = 0;
-		do {
-			row = askForInt(scan, " Please pick a row to score:");
-			row -= 1 ;
-		} while (theGame.scoreCard().rows(theGame.dice())[row].isScored());
-		theGame.pickAScore(row);
 	}
 
 	private static void eliminateDice(Yahtzee theGame) {
-		String dieNumbers = askForString(scan, "Choose die positions to remove (1 3 5)");
+		String dieNumbers = askForString(scan, "Choose die positions to remove (eg. 1 3 5)");
 		theGame.eliminateDie(dieNumbers);
 		theGame.roll();
 	}
@@ -75,10 +65,19 @@ public class YahtzeeUI {
 	private static void eliminateDiceOrAskToScore(Yahtzee theGame) {
 		String choice = askForString(scan, "(R)oll or (S)core? " + theGame.rollsLeft() + " rolls left");
 		if (choice.toUpperCase().equals("S")) { 
-			displayScoreOptionsAndPick(theGame);
+			pickScore(theGame);
 		} else {
 			eliminateDice(theGame);
 		}
+	}
+
+	private static void pickScore(Yahtzee theGame) {
+		int row = 0;
+		do {
+			row = askForInt(scan, " Please pick a row to score:");
+			row -= 1 ;
+		} while (theGame.scoreCard().rows(theGame.dice())[row].isScored());
+		theGame.pickAScore(row);
 	}
 
 	private static boolean playAgain() {
@@ -91,11 +90,10 @@ public class YahtzeeUI {
 		while (theGame.inATurn()) {
 			displayScoreCard(theGame);
 			displayDice(theGame);
-			// roll again or pick score
 			if (theGame.rollsLeft() > 0)
 				eliminateDiceOrAskToScore(theGame);
 			else
-				displayScoreOptionsAndPick(theGame);
+				pickScore(theGame);
 		}
 	}
 

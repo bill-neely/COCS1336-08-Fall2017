@@ -1,23 +1,47 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Yahtzee {
-	
-	private boolean isNotOver;
+
 	private int turnsLeft;
-	
+	private int rollsLeft;
+	private boolean inATurn;
+	private ArrayList<Die> dice;
+	private YahtzeeScoreCard scoreCard;
+
 	public Yahtzee() {
-		this.isNotOver = true;
-		this.turnsLeft = 13;
 	}
-	
+
+	public ArrayList<Die> dice() {
+	}
+
+	public void eliminateDie(String remove) {
+	}
+
+	public boolean inATurn() {
+	}
+
 	public boolean isNotOver() {
-		return this.isNotOver;
+	}
+
+	public void pickAScore(int row) {
+	}
+
+	public void roll() {
+	}
+
+	public int rollsLeft() {
+	}
+
+	public YahtzeeScoreCard scoreCard() {
 	}
 
 	public void startTurn() {
-		this.turnsLeft--;
-		if (this.turnsLeft == 0) {
-			this.isNotOver = false;
-		}
 	}
+
+	public int turnsLeft() {
+	}
+
+
 
 }
